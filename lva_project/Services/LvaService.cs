@@ -1,5 +1,6 @@
 using lva_project.Exceptions;
 using lva_project.Models;
+using lva_project.Utils;
 
 namespace lva_project.Services;
 
@@ -18,11 +19,13 @@ public class LvaService : ILvaService
 {
     private readonly LvaContext _lvaContext;
     private readonly ILogger<Lva> _logger;
+    private readonly IUtils _utils;
 
-    public LvaService(LvaContext lvaContext, ILogger<Lva> logger)
+    public LvaService(LvaContext lvaContext, ILogger<Lva> logger, IUtils utils)
     {
         _lvaContext = lvaContext;
         _logger = logger;
+        _utils = utils;
     }
     public void CreateLva(Lva lva)
     {
@@ -81,14 +84,15 @@ public class LvaService : ILvaService
         }
 
         //update the LVA in the database with the new values
-        lvaFromDb.LvaExam = lva.LvaExam;
-        lvaFromDb.LvaInstitute = lva.LvaInstitute;
-        lvaFromDb.LvaName = lva.LvaName;
-        lvaFromDb.LvaRoom = lva.LvaRoom;
-        lvaFromDb.LvaNumber = lva.LvaNumber;
-        lvaFromDb.LvaCreatedOn = lva.LvaCreatedOn;
-        lvaFromDb.LvaTeacher = lva.LvaTeacher;
-        lvaFromDb.LvaType = lva.LvaType;
+        _utils.UpdatePropertyValues(lva, lvaFromDb);
+        // lvaFromDb.LvaExam = lva.LvaExam;
+        // lvaFromDb.LvaInstitute = lva.LvaInstitute;
+        // lvaFromDb.LvaName = lva.LvaName;
+        // lvaFromDb.LvaRoom = lva.LvaRoom;
+        // lvaFromDb.LvaNumber = lva.LvaNumber;
+        // lvaFromDb.LvaCreatedOn = lva.LvaCreatedOn;
+        // lvaFromDb.LvaTeacher = lva.LvaTeacher;
+        // lvaFromDb.LvaType = lva.LvaType;
         
         _lvaContext.SaveChanges();
         _logger.LogInformation($"LVA with ID {id} successfully updated!", lva);
@@ -106,4 +110,5 @@ public class LvaService : ILvaService
         _lvaContext.SaveChanges();
         _logger.LogInformation($"LVA with ID {id} successfully deleted!");
     }
+    
 }

@@ -20,6 +20,8 @@ public class LvaController : Controller
 
     /// <summary>
     /// HttpGet: Returns a List of all LVAs
+    /// Throws an LvaException if there are no
+    /// LVAs stored in the database.
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -29,6 +31,13 @@ public class LvaController : Controller
         return Ok(lvas);
     }
 
+    /// <summary>
+    /// HttpGet: Returns a list of all LVAs per a specified
+    /// semester. Throws an LvaException if there are no
+    /// LVAs stored in the database.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("semester/{id}")]
     public IActionResult GetLvaPerSemester([FromRoute] int id)
     {
@@ -37,7 +46,9 @@ public class LvaController : Controller
     }
 
     /// <summary>
-    /// Returns the LVA with the specified ID
+    /// HttpGet: Returns the LVA with the specified ID.
+    /// Throws an LvaException if there is no Lva with
+    /// the specified ID.
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -49,7 +60,10 @@ public class LvaController : Controller
     }
 
     /// <summary>
-    /// Creates an LVA with the specified attributes
+    /// Creates an LVA with the specified attributes.
+    /// Throws LvaException if the Lva already exists.
+    /// Adds Lva to the Database and Saves the changes.
+    /// Logs if the operation was successful.
     /// </summary>
     /// <param name="lva"></param>
     /// <returns></returns>
@@ -61,7 +75,11 @@ public class LvaController : Controller
     }
 
     /// <summary>
-    /// Updates an LVA with a specific ID with the specified Attributes
+    /// Updates an LVA with a specific ID with the specified Attributes.
+    /// Throws an LvaException if there is no LVA with the specified
+    /// ID. Throws an Exception if the IDs mismatch.
+    /// Updates and saves the changes to the database.
+    /// Logs if the operation was successful.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="lva"></param>
@@ -74,7 +92,9 @@ public class LvaController : Controller
     }
 
     /// <summary>
-    /// Deletes an LVA with the specified ID
+    /// Deletes an LVA with the specified ID. Throws an exception if there is no
+    /// LVA with the specified ID. Saves the changes to the database.
+    /// Logs if the operation was successful.
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

@@ -1,6 +1,7 @@
 using System.Linq;
 using lva_project.Exceptions;
 using lva_project.Models;
+using lva_project.Utils;
 
 namespace lva_project.Services;
 
@@ -16,11 +17,13 @@ public class SemesterService : ISemesterService
 {
     private readonly LvaContext _lvaContext;
     private readonly ILogger<Semester> _logger;
+    private readonly IUtils _utils;
 
-    public SemesterService(LvaContext lvaContext, ILogger<Semester> logger)
+    public SemesterService(LvaContext lvaContext, ILogger<Semester> logger, IUtils utils)
     {
         _lvaContext = lvaContext;
         _logger = logger;
+        _utils = utils;
     }
     
     public void CreateSemester(Semester semester)
@@ -69,9 +72,11 @@ public class SemesterService : ISemesterService
         {
             throw new SemesterException("Mismatching IDs!");
         }
+        
+        _utils.UpdatePropertyValues(semester, semesterFromDb);
 
-        semesterFromDb.SemId = semester.SemId;
-        semesterFromDb.SemName = semester.SemName;
+        // semesterFromDb.SemId = semester.SemId;
+        // semesterFromDb.SemName = semester.SemName;
         _lvaContext.SaveChanges();
         _logger.LogInformation($"Semester with ID {id} successfully updated!", semester);
 

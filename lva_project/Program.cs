@@ -1,5 +1,6 @@
 using lva_project.Models;
 using lva_project.Services;
+using lva_project.Utils;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<LvaContext>();
 builder.Services.AddScoped<ILvaService, LvaService>();
 builder.Services.AddScoped<ISemesterService, SemesterService>();
+builder.Services.AddScoped<IUtils, Utils>();
+
 
 
 // builder.Services.AddTransient<LvaService>();

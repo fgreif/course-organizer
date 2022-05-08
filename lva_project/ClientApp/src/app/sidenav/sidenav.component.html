@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar style="color: white; background-color: #3f51b5;">Menu</mat-toolbar>
     <mat-nav-list>
         <a *ngFor="let item of menuItems" mat-list-item [routerLink]="'/'+item"> {{item | titlecase}} </a>
         <mat-list-item>
@@ -22,10 +22,12 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>lva_project</span>
+      <div style="margin-left: 10px;">
+      <span>Kursverwaltung</span>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
     <!-- Add Content Here -->
