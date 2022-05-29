@@ -8,7 +8,7 @@ namespace lva_project.Controllers;
 /// API for a management system of Courses at university (LVAs)
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class LvaController : Controller
 {
     private readonly ILvaService _lvaService;
@@ -24,7 +24,7 @@ public class LvaController : Controller
     /// LVAs stored in the database.
     /// </summary>
     /// <returns></returns>
-    [HttpGet]
+    [HttpGet("")]
     public IActionResult GetAllLva()
     {
         var lvas = _lvaService.ReadAllLva();
